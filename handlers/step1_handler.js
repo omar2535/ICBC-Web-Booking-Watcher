@@ -20,10 +20,6 @@ async function step1Handler(page, step1OptionSelection) {
 
     // select input option
     await selectInput(input_elements, page, step1OptionSelection, result);
-
-    const new_input_elements = await page.$$('#step2 input[type="radio"]');
-    console.log(`new input elements length: ${new_input_elements.length}`);
-
     return result;
 }
 
@@ -65,7 +61,7 @@ async function selectInput(input_elements, page, number, result) {
     await input_element.click();
 
     console.log(`Clicked input option: ${result[`${number}`]["label"]}`);
-    await page.waitFor(2000);
+    await page.waitFor(1000);
     await page.screenshot({path: './images/step1_option_selected.png', fullPage: true});
 }
 
