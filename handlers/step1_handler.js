@@ -63,7 +63,7 @@ async function selectInput(input_elements, page, number, result) {
 
     console.log(`Clicked input option: ${result[`${number}`]["label"]}`);
     await page.waitFor(1000);
-    await page.screenshot({path: './images/step1_option_selected.png', fullPage: true});
+    // await page.screenshot({path: './images/step1_option_selected.png', fullPage: true});
 }
 
 module.exports = step1Handler;

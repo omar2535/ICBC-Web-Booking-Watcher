@@ -38,7 +38,7 @@ let endDate = '2020-10-30';
     await page.waitFor(1000);
 
     // take a screenshot to verify :)
-    await page.screenshot({path: './images/initial_screenshot.png', fullPage: true});
+    // await page.screenshot({path: './images/initial_screenshot.png', fullPage: true});
 
     // step1: select a service
     let step1_result = await step1Handler(page, step1Option);
@@ -47,7 +47,7 @@ let endDate = '2020-10-30';
     const step2_dropdown_button = await page.$('#step2');
     await step2_dropdown_button.click();    
     await page.waitFor(1000);
-    await page.screenshot({path: './images/step2_dropdown_clicked.png', fullPage: true});
+    // await page.screenshot({path: './images/step2_dropdown_clicked.png', fullPage: true});
 
     // step2: select a location
     let step2_result = await step2Handler(page, step2Option);
