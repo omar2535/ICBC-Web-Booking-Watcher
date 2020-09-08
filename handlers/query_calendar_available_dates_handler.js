@@ -15,7 +15,8 @@ async function queryCalendarDates(location_id, service_id) {
                `servicePublicId=${service_id};` +
                `customSlotLength=10`.split('\n').join('');
     let data = await requestApi(url);
-    return data;
+    let result = convertCaneldarDatesToArray(data);
+    return result;
 }
 
 function requestApi(url) {
@@ -28,6 +29,17 @@ function requestApi(url) {
             }
         });
     });
+}
+
+// Converts the object from calendar dates API to an array of dates
+// available
+function convertCaneldarDatesToArray(calendarDates) {
+    let calendarDatesArray = [];
+    for(i=0; i<calendarDates.length; i++) {
+        let currentObject = calendarDates[i];
+        calendarDatesArray.push(currentObject.date);
+    }
+    return calendarDatesArray;
 }
 
 module.exports = queryCalendarDates;
