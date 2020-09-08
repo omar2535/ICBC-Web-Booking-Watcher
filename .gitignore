@@ -1,4 +1,5 @@
 node_modules/*
-images/*
 *.vscode
 notes/*
+config/*
+config

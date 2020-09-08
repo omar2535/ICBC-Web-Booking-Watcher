@@ -1,5 +1,6 @@
-Parameters:
-  StartDate: 2020-09-01
-  EndDate: 2020-12-01
-  Step1: 3
-  Step2: 10
+StartDate: "2020-09-01"
+EndDate: "2020-10-30"
+Step1: 1
+Step2: 10
+Interval: 300000
+ShouldSendEmail: "false"

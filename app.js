@@ -1,15 +1,21 @@
+const fs = require('fs');
+const yaml = require('js-yaml');
 const puppeteer = require('puppeteer');
 const step1Handler = require('./handlers/step1_handler');
 const step2Handler = require('./handlers/step2_handler');
 const queryCalendarTimes = require('./handlers/query_calendar_times_handler');
 const queryCalendarDates = require('./handlers/query_calendar_available_dates_handler');
 const generateDateRangeArray = require('./utils/DateHelpers');
+const sendEmailNotification = require('./handlers/email_notification_handler');
 
-let step1Option = 1;
-let step2Option = 10;
-let startDate = '2020-09-01';
-let endDate = '2020-10-30';
-
+// parse from config file first
+let config = loadConfig();
+let step1Option = config.Step1;
+let step2Option = config.Step2;
+let interval = config.Interval;
+let shouldSendEmail = config.ShouldSendEmail == "true" ? true : false;
+let startDate = config.StartDate;
+let endDate = config.EndDate;
 
 (async() => {
     const browser = await puppeteer.launch({args: [
@@ -77,10 +83,31 @@ let endDate = '2020-10-30';
                 availabilityResults[`${date}`].push(dateAndTime.time);
             });
         }
+        console.log(`UTC TIME : ${new Date()}`);
         console.log(availabilityResults);
+        console.log(`---------------------------------------------------------------------`);
 
-        await new Promise(r => setTimeout(r, 20000));
+        if( (!(Object.keys(availabilityResults).length === 0
+              && availabilityResults.constructor === Object))
+              && shouldSendEmail) {
+            sendEmailNotification(availabilityResults);
+        }
+
+        await new Promise(r => setTimeout(r, interval));
     }
 
     await browser.close();
 })();
+
+/**
+ * @returns {Object} javascript object of config/config.yml file
+ */
+function loadConfig() {
+    try {
+        let fileContents = fs.readFileSync('./config/config.yml', 'utf8');
+        let data = yaml.safeLoad(fileContents);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
