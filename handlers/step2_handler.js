@@ -1,29 +1,27 @@
-// File for step 1 of ICBC QMatic web booking form
+// File for step 2 of ICBC QMatic web booking form
 
 /**
  * 
  * @param {Page} page puppeteer page
  * @param {Integer} step1OptionSelection 
  */
-async function step1Handler(page, step1OptionSelection) {
+async function step2Handler(page, step1OptionSelection) {
     // handle input parsing
-    const input_elements = await page.$$('#step1 input[type="radio"]');
-    const input_ids = await page.$$eval('#step1 input[type="radio"]', el => el.map(x => x.getAttribute("value")));
+    const input_elements = await page.$$('#step2 input[type="radio"]');
+    const input_ids = await page.$$eval('#step2 input[type="radio"]', el => el.map(x => x.getAttribute("value")));
 
     // handle label parsing
-    const label_elements = await page.$$('#step1 label');
+    const label_elements = await page.$$('#step2 label');
     const actual_label_elements = getOnlyInputLabelsElements(label_elements);
     const labels = await getLabelNames(actual_label_elements, page);
 
-    // generate the result early
-    let result = generateResult(input_ids, labels);
-
     // select input option
-    await selectInput(input_elements, page, step1OptionSelection, result);
+    await selectInput(input_elements, page, step1OptionSelection);
 
     const new_input_elements = await page.$$('#step2 input[type="radio"]');
     console.log(`new input elements length: ${new_input_elements.length}`);
 
+    let result = generateResult(input_ids, labels);
     return result;
 }
 
@@ -60,13 +58,13 @@ async function getLabelNames(actual_label_elements, page) {
     return labels;
 }
 
-async function selectInput(input_elements, page, number, result) {
+async function selectInput(input_elements, page, number) {
     input_element = input_elements[number];
-    await input_element.click();
+    await input_element.click();    
 
-    console.log(`Clicked input option: ${result[`${number}`]["label"]}`);
+    console.log('clicked');
     await page.waitFor(2000);
-    await page.screenshot({path: './images/step1_option_selected.png', fullPage: true});
+    await page.screenshot({path: './images/clicked.png', fullPage: true});
 }
 
-module.exports = step1Handler;
+module.exports = step2Handler;
