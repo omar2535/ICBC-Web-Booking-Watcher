@@ -59,9 +59,10 @@ const queryCalendarDates = require('./handlers/query_calendar_available_dates_ha
     console.log(calendarTimes);
 
     // final step
-    // we are going to continuously loop to check whether there are any free slots within that day
-    // if there is, notify
-    // default delay of 
+    // we are going to continuously loop to check whether there are any free slots within
+    // date range and time range
+
+    
 
     await browser.close();
 })().catch((error) => {
