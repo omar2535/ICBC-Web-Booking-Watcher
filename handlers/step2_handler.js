@@ -24,7 +24,7 @@ async function step2Handler(page, optionSelection) {
     // select input option
     await selectInput(input_elements, page, optionSelection, result);
 
-    return result;
+    return result[`${optionSelection}`]['input_id'];
 }
 
 // generate result object

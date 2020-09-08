@@ -3,9 +3,10 @@
 /**
  * 
  * @param {Page} page puppeteer page
- * @param {Integer} step1OptionSelection 
+ * @param {Integer} optionSelection 
+ * return input_id for option selected 
  */
-async function step1Handler(page, step1OptionSelection) {
+async function step1Handler(page, optionSelection) {
     // handle input parsing
     const input_elements = await page.$$('#step1 input[type="radio"]');
     const input_ids = await page.$$eval('#step1 input[type="radio"]', el => el.map(x => x.getAttribute("value")));
@@ -19,8 +20,8 @@ async function step1Handler(page, step1OptionSelection) {
     let result = generateResult(input_ids, labels);
 
     // select input option
-    await selectInput(input_elements, page, step1OptionSelection, result);
-    return result;
+    await selectInput(input_elements, page, optionSelection, result);
+    return result[`${optionSelection}`]['input_id'];
 }
 
 // generate result object
