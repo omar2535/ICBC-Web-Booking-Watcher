@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const step1Parser = require('./handlers/step1_handler');
+const step1Handler = require('./handlers/step1_handler');
 
 (async() => {
     const browser = await puppeteer.launch({args: [
@@ -30,7 +30,9 @@ const step1Parser = require('./handlers/step1_handler');
     await page.screenshot({path: 'screenshot.png', fullPage: true});
 
 
-    await step1Parser(page);
+    let step1_result = await step1Handler(page, 0);
+    console.log(step1_result);
+
 
     await browser.close();
 })().catch((error) => {
