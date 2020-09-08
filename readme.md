@@ -48,6 +48,10 @@ The start date to be searched through in `YYYY-MM-DD` format
 
 true / false value as a string indicating whether to send an email or not
 
+## Setting up email_config.yml
+
+Move the email_config.template.yml to email_config.yml and fill in the required fields
+
 ## Usage
 
 This program can be run in the background by simply running it with:

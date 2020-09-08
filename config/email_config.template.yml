@@ -1,0 +1,4 @@
+user: abcdefg@gmail.com
+pass: "abcdefg"
+receiver: "myemail@gmail.com"
+subject: "Email notification"
